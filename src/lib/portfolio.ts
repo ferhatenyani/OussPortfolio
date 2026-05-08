@@ -101,7 +101,7 @@ export const projects: Project[] = [
     year: "2026",
     tags: ["OSS", "Observability", "RSC"],
     metric: { label: "GitHub stars", value: "4.1k" },
-    href: "#",
+    href: "https://github.com/oussthecodeguy/helix",
     feature: true,
   },
   {
@@ -111,7 +111,7 @@ export const projects: Project[] = [
     year: "2025",
     tags: ["Product", "Collab", "CRDT"],
     metric: { label: "Daily active orgs", value: "320" },
-    href: "#",
+    href: "https://github.com/oussthecodeguy/atlas-editor",
     feature: true,
   },
   {
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     year: "2025",
     tags: ["Tooling", "Performance"],
     metric: { label: "Teams using", value: "1.2k" },
-    href: "#",
+    href: "https://github.com/oussthecodeguy/pulse",
   },
   {
     title: "Fold",
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     year: "2024",
     tags: ["Product", "Web"],
     metric: { label: "Posts published", value: "18k" },
-    href: "#",
+    href: "https://github.com/oussthecodeguy/fold",
   },
   {
     title: "Glyph",
@@ -139,7 +139,7 @@ export const projects: Project[] = [
     year: "2024",
     tags: ["OSS", "DX"],
     metric: { label: "Weekly downloads", value: "82k" },
-    href: "#",
+    href: "https://github.com/oussthecodeguy/glyph",
   },
   {
     title: "Deck",
@@ -147,7 +147,7 @@ export const projects: Project[] = [
       "A presentation tool for engineers — write slides in MDX, render diagrams from code, export to PDF.",
     year: "2023",
     tags: ["Product", "Side"],
-    href: "#",
+    href: "https://github.com/oussthecodeguy/deck",
   },
 ];
 
