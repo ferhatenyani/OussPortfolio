@@ -104,11 +104,22 @@ const cards: Card[] = [
     slug: "arch",
     label: "09",
     title: "arch",
-    tagline: "neofetch · btop · tmux · interactive prompt",
+    tagline: "hyprland workspace portfolio",
     description:
-      "A full Arch Linux + Hyprland desktop experience. Catppuccin Mocha palette, ASCII Arch logo, animated btop gauges, tmux-style multi-pane terminal, real interactive shell that accepts commands.",
+      "Six-workspace Hyprland desktop with simplified, recruiter-friendly content per workspace. Catppuccin Mocha. JetBrains Mono. Click waybar tabs or press 1–6.",
     swatches: ["#1E1E2E", "#CBA6F7", "#A6E3A1", "#FAB387", "#F38BA8"],
-    type: "JetBrains Mono only · 24 colors",
+    type: "JetBrains Mono only",
+    group: "wild",
+  },
+  {
+    slug: "dual",
+    label: "10",
+    title: "dual",
+    tagline: "paper × terminal · swipe to switch",
+    description:
+      "Two coherent design systems sharing the same data. Paper mode: riso × bauhaus, geometric ornaments, double-print typography. Terminal mode: pushed Hyprland with vim-nav, drop-down shell, real commands. Swipe transition + boot-line echo.",
+    swatches: ["#F4EDD8", "#E63946", "#1D3557", "#1E1E2E", "#CBA6F7"],
+    type: "Bricolage Grotesque · Inter · JetBrains Mono",
     group: "wild",
   },
 ];

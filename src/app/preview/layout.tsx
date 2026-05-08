@@ -13,6 +13,7 @@ const tabs = [
   { slug: "blueprint", label: "Blueprint", hint: "cyanotype", group: "wild" },
   { slug: "atelier", label: "Atelier", hint: "quiet warm", group: "wild" },
   { slug: "arch", label: "Arch", hint: "terminal", group: "wild" },
+  { slug: "dual", label: "Dual", hint: "paper × terminal", group: "wild" },
 ];
 
 export default function PreviewLayout({ children }: { children: React.ReactNode }) {
