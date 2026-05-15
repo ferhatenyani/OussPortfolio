@@ -88,8 +88,10 @@ export type Project = {
   blurb: string;
   year: string;
   tags: string[];
+  stack: string[];
   metric?: { label: string; value: string };
   href?: string;
+  demo?: string;
   feature?: boolean;
 };
 
@@ -97,57 +99,69 @@ export const projects: Project[] = [
   {
     title: "Helix",
     blurb:
-      "An opinionated open-source telemetry layer for React Server Components. Tracks server/client round-trips with sub-millisecond overhead.",
+      "An opinionated open-source telemetry layer for React Server Components. Tracks server/client round-trips with sub-millisecond overhead, and surfaces waterfall traces directly inside the React DevTools.",
     year: "2026",
     tags: ["OSS", "Observability", "RSC"],
+    stack: ["TypeScript", "Next.js", "React", "Vite", "OpenTelemetry", "Rust"],
     metric: { label: "GitHub stars", value: "4.1k" },
     href: "https://github.com/oussthecodeguy/helix",
+    demo: "https://helix.dev",
     feature: true,
   },
   {
     title: "Atlas Editor",
     blurb:
-      "A collaborative document editor with CRDT-backed offline sync, custom block primitives, and a plugin runtime.",
+      "A collaborative document editor with CRDT-backed offline sync, custom block primitives, and a plugin runtime. Real-time presence, keyboard-first authoring, and full export to portable formats.",
     year: "2025",
     tags: ["Product", "Collab", "CRDT"],
+    stack: ["TypeScript", "React", "Yjs", "tRPC", "Postgres", "Tiptap"],
     metric: { label: "Daily active orgs", value: "320" },
     href: "https://github.com/oussthecodeguy/atlas-editor",
+    demo: "https://atlas-editor.app",
     feature: true,
   },
   {
     title: "Pulse",
     blurb:
-      "A lightweight uptime + lighthouse runner for indie teams. Runs in your CI; posts deltas to Slack.",
+      "A lightweight uptime + Lighthouse runner for indie teams. Runs in your CI; posts deltas to Slack with regression-aware annotations and trend charts.",
     year: "2025",
     tags: ["Tooling", "Performance"],
+    stack: ["Go", "Lighthouse", "GitHub Actions", "Slack API"],
     metric: { label: "Teams using", value: "1.2k" },
     href: "https://github.com/oussthecodeguy/pulse",
+    demo: "https://pulse.run",
   },
   {
     title: "Fold",
     blurb:
-      "A typographic blogging platform with built-in newsletter delivery and zero external runtime deps.",
+      "A typographic blogging platform with built-in newsletter delivery and zero external runtime deps. Optimized for reading: sub-100kb pages, instant nav, no JS required for content.",
     year: "2024",
     tags: ["Product", "Web"],
+    stack: ["Astro", "TypeScript", "MDX", "SQLite", "Resend"],
     metric: { label: "Posts published", value: "18k" },
     href: "https://github.com/oussthecodeguy/fold",
+    demo: "https://fold.page",
   },
   {
     title: "Glyph",
     blurb:
-      "A small, fast, type-safe i18n library with translation-state debugging baked into the React DevTools.",
+      "A small, fast, type-safe i18n library with translation-state debugging baked into the React DevTools. ICU MessageFormat support, typed keys, and first-class server-component integration.",
     year: "2024",
     tags: ["OSS", "DX"],
+    stack: ["TypeScript", "React", "ICU MessageFormat", "Vite"],
     metric: { label: "Weekly downloads", value: "82k" },
     href: "https://github.com/oussthecodeguy/glyph",
+    demo: "https://glyph.dev",
   },
   {
     title: "Deck",
     blurb:
-      "A presentation tool for engineers — write slides in MDX, render diagrams from code, export to PDF.",
+      "A presentation tool for engineers — write slides in MDX, render diagrams from code, export to PDF. Built around a dual-pane authoring loop: source on the left, rendered slide on the right.",
     year: "2023",
     tags: ["Product", "Side"],
+    stack: ["Next.js", "MDX", "Mermaid", "Playwright"],
     href: "https://github.com/oussthecodeguy/deck",
+    demo: "https://deck.show",
   },
 ];
 
