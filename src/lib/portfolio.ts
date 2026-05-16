@@ -37,49 +37,87 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    company: "Lumen Systems",
-    role: "Senior Software Engineer",
-    start: "2024",
+    company: "Independent",
+    role: "Founder & Engineer",
+    start: "Jan 2026",
     end: "Present",
-    location: "Remote",
+    location: "Remote · Full Time",
     summary:
-      "Lead engineer on a real-time analytics platform serving 40M+ events/day. Owns the data ingestion pipeline and the customer-facing dashboard.",
+      "Independent engineering and consulting work on backend systems, distributed infrastructure, and product builds.",
     highlights: [
-      "Cut p95 dashboard load from 2.6s → 380ms via streaming SSR and edge caching",
-      "Designed an event schema registry adopted by 12 product teams",
-      "Mentored 4 engineers; established the platform-team RFC process",
+      "Building product software and taking on backend / AI engagements.",
     ],
-    stack: ["Next.js", "TypeScript", "Postgres", "Redis", "ClickHouse", "Kafka"],
+    stack: ["TypeScript", "Spring Boot", "Next.js", "AWS"],
   },
   {
-    company: "Nordstack",
-    role: "Software Engineer",
-    start: "2022",
-    end: "2024",
-    location: "Stockholm",
+    company: "Tech-Instinct",
+    role: "Backend Engineer",
+    start: "Nov 2023",
+    end: "Jan 2026",
+    location: "Béjaïa · Full Time",
     summary:
-      "Shipped a multi-tenant billing engine and rebuilt the merchant portal. First engineer in the EU squad.",
+      "Scaling a multi-frontend voting platform, leading cross-region AWS migration, and architecting backend infrastructure for invoicing.",
     highlights: [
-      "Rebuilt the merchant portal in 6 weeks; +28% WAU within a quarter",
-      "Authored idempotent webhooks layer processing 1.2M req/day at four-9s",
-      "Introduced visual regression tests, eliminating four UI-related Sev-2s",
+      "Developed and optimized the Voteer platform serving 5 frontend apps with up to 100 concurrent users; reduced latency via Hazelcast distributed caching.",
+      "Led AWS migration from Ireland to Paris region and built a dedicated staging environment.",
+      "Designed backend architecture for the after-sales service module of FAST (invoicing app), including offline PWA functionality.",
+      "Mentored a backend intern on Spring Boot, API design, and integration testing.",
     ],
-    stack: ["Next.js", "tRPC", "Drizzle", "Postgres", "Stripe", "Playwright"],
+    stack: ["Spring Boot", "Java", "AWS", "Hazelcast", "PWA"],
   },
   {
-    company: "Cobalt Labs",
-    role: "Full-Stack Engineer",
-    start: "2020",
-    end: "2022",
-    location: "Berlin / Remote",
+    company: "Abderrahmane Mira University",
+    role: "Adjunct Professor",
+    start: "Sept 2023",
+    end: "Jan 2024",
+    location: "Béjaïa · Part Time",
     summary:
-      "Built internal tooling and customer-facing features for a B2B logistics SaaS. Worked across the stack with a small founding team.",
+      "Taught Object-Oriented Programming workshops to second-year Computer Engineering students.",
     highlights: [
-      "Built an offline-first warehouse client used in 9 countries",
-      "Owned the migration from REST to GraphQL across the platform",
-      "Led the design-engineering pairing program with the product team",
+      "Conducted Object-Oriented Programming workshops for 2nd-year Computer Engineering students.",
     ],
-    stack: ["React", "GraphQL", "Node", "Postgres", "AWS"],
+    stack: ["Java", "OOP"],
+  },
+  {
+    company: "MSolution",
+    role: "Full Stack Developer",
+    start: "Jan 2023",
+    end: "Nov 2023",
+    location: "Béjaïa · Part Time",
+    summary:
+      "Built and deployed a multilingual web platform serving 1,000+ regional lawyers, end-to-end.",
+    highlights: [
+      "Built and deployed barreaubejaia.com for 1,000+ regional lawyers with multilingual support (Arabic, French, English).",
+      "Django + SQLite backend with Bootstrap frontend; real-time announcements, council updates, and document access system.",
+    ],
+    stack: ["Django", "Python", "SQLite", "Bootstrap"],
+  },
+  {
+    company: "University Hospital Center Khelil Amrane",
+    role: "Data Science Intern",
+    start: "May 2023",
+    end: "June 2023",
+    location: "Béjaïa · Internship",
+    summary:
+      "Trained CNNs on MRI imaging for neurosurgical decision support and shipped a Django decision-support tool.",
+    highlights: [
+      "Trained CNN models on 1,700 MRI images (+ augmentation) with TensorFlow, achieving 93% accuracy for neurosurgical decision prediction.",
+      "Integrated the model into a Django web app as a decision-support tool for medical students.",
+    ],
+    stack: ["TensorFlow", "Python", "Django", "CNN"],
+  },
+  {
+    company: "Rival School Béjaïa",
+    role: "Coding Instructor",
+    start: "April 2023",
+    end: "June 2023",
+    location: "Béjaïa · Part Time",
+    summary:
+      "Taught Python fundamentals and problem-solving techniques to students.",
+    highlights: [
+      "Taught Python fundamentals and problem-solving techniques to students.",
+    ],
+    stack: ["Python"],
   },
 ];
 

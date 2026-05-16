@@ -2170,81 +2170,152 @@ function PaperAboutAcademic() {
       <div className="mt-16">
         <ProgrammeHead numeral="V" label="Studies" color={paper.red} />
         <motion.article
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-15%" }}
           transition={{ duration: 0.55, ease }}
-          className="mt-10 border-[3px] relative grid grid-cols-1 lg:grid-cols-2"
-          style={{ borderColor: paper.ink, background: paper.paper }}
+          className="mt-10 relative overflow-hidden"
+          style={{
+            border: `2px solid ${paper.ink}`,
+            background: paper.paper,
+            boxShadow: `4px 4px 0 ${paper.ink}`,
+          }}
         >
-          {education.map((e, i) => {
-            const accent = i === 0 ? paper.red : paper.navy;
-            return (
-              <div
-                key={e.degree}
-                className={
-                  i === 0
-                    ? "p-7 md:p-9 relative border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px]"
-                    : "p-7 md:p-9 relative"
-                }
-                style={i === 0 ? { borderColor: paper.ink } : undefined}
-              >
+          {/* very faint riso texture wash */}
+          <span aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.05]">
+            <RisoTexture color={paper.ink} opacity={0.5} />
+          </span>
+
+          {/* HEADER — institution shown once */}
+          <header
+            className="relative px-6 md:px-8 py-4"
+            style={{ borderBottom: `1.5px solid ${paper.ink}` }}
+          >
+            <div
+              className="font-[family-name:var(--p-mono)] uppercase"
+              style={{
+                fontSize: "9.5px",
+                letterSpacing: "0.32em",
+                fontWeight: 700,
+                color: paper.ink,
+                opacity: 0.55,
+              }}
+            >
+              Institution
+            </div>
+            <div
+              className="mt-1 font-[family-name:var(--p-display)] uppercase tracking-[-0.01em]"
+              style={{
+                fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)",
+                fontWeight: 700,
+                color: paper.ink,
+              }}
+            >
+              {education[0].institution}
+            </div>
+          </header>
+
+          {/* TWO PANELS */}
+          <div className="relative grid grid-cols-1 lg:grid-cols-2">
+            {education.map((e, i) => {
+              const accent = i === 0 ? paper.red : paper.navy;
+              return (
                 <div
-                  aria-hidden
-                  className="inline-block px-2 py-0.5 font-[family-name:var(--p-mono)] text-[10.5px] uppercase tracking-[0.22em]"
-                  style={{ background: accent, color: paper.paper, fontWeight: 700 }}
+                  key={e.degree}
+                  className={
+                    i === 0
+                      ? "relative p-6 md:p-8 border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px]"
+                      : "relative p-6 md:p-8"
+                  }
+                  style={i === 0 ? { borderColor: paper.ink } : undefined}
                 >
-                  {e.start} – {e.end}
-                </div>
-                <h3
-                  className="mt-4 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em] leading-[0.95]"
-                  style={{
-                    fontSize: "clamp(1.3rem, 2vw, 1.7rem)",
-                    color: paper.ink,
-                    fontWeight: 700,
-                  }}
-                >
-                  {e.degree}
-                </h3>
-                <div
-                  className="mt-1.5 font-[family-name:var(--p-mono)] text-[11.5px] uppercase tracking-[0.18em]"
-                  style={{ color: paper.navy, fontWeight: 700 }}
-                >
-                  {e.institution}
-                </div>
-                {e.grade ? (
+                  {/* Dates — top anchor, accent color */}
                   <div
-                    className="mt-4 font-[family-name:var(--p-mono)] text-[11.5px] uppercase tracking-[0.2em]"
-                    style={{ color: paper.ink, fontWeight: 700 }}
+                    className="font-[family-name:var(--p-mono)] uppercase"
+                    style={{
+                      fontSize: "10.5px",
+                      letterSpacing: "0.26em",
+                      fontWeight: 800,
+                      color: accent,
+                    }}
                   >
-                    Graduation:{" "}
-                    <span style={{ color: accent }}>{e.grade}</span>
+                    {e.start} — {e.end}
                   </div>
-                ) : null}
-                {e.thesis ? (
-                  <div className="mt-4">
+
+                  {/* Degree title */}
+                  <h3
+                    className="mt-3 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em] leading-[0.96]"
+                    style={{
+                      fontSize: "clamp(1.3rem, 2.1vw, 1.75rem)",
+                      fontWeight: 700,
+                      color: paper.ink,
+                      textShadow: `1.4px 1px 0 ${accent}`,
+                    }}
+                  >
+                    {e.degree}
+                  </h3>
+
+                  {/* Grade pill */}
+                  {e.grade ? (
                     <div
-                      className="font-[family-name:var(--p-mono)] uppercase tracking-[0.24em]"
+                      className="mt-5 inline-flex items-baseline gap-3 px-3 py-1.5"
                       style={{
-                        fontSize: "9.5px",
-                        color: paper.ink,
-                        opacity: 0.55,
-                        fontWeight: 700,
+                        border: `1.5px solid ${paper.ink}`,
+                        background: paper.paperWarm,
                       }}
                     >
-                      Thesis
+                      <span
+                        className="font-[family-name:var(--p-mono)] uppercase"
+                        style={{
+                          fontSize: "9.5px",
+                          letterSpacing: "0.28em",
+                          fontWeight: 800,
+                          color: paper.ink,
+                          opacity: 0.65,
+                        }}
+                      >
+                        Graduation
+                      </span>
+                      <span
+                        className="font-[family-name:var(--p-display)]"
+                        style={{
+                          fontSize: "1.1rem",
+                          fontWeight: 800,
+                          color: accent,
+                          letterSpacing: "-0.02em",
+                        }}
+                      >
+                        {e.grade}
+                      </span>
                     </div>
-                    <p
-                      className="mt-1 text-[13.5px] leading-[1.55]"
-                      style={{ color: paper.ink }}
-                    >
-                      {e.thesis}
-                    </p>
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
+                  ) : null}
+
+                  {/* Thesis */}
+                  {e.thesis ? (
+                    <div className="mt-6">
+                      <div
+                        className="font-[family-name:var(--p-mono)] uppercase"
+                        style={{
+                          fontSize: "9.5px",
+                          letterSpacing: "0.3em",
+                          fontWeight: 800,
+                          color: accent,
+                        }}
+                      >
+                        Thesis
+                      </div>
+                      <p
+                        className="mt-1.5 text-[13.5px] leading-[1.55]"
+                        style={{ color: paper.ink, opacity: 0.9 }}
+                      >
+                        {e.thesis}
+                      </p>
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
+          </div>
         </motion.article>
       </div>
     </section>
