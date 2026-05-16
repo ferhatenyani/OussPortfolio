@@ -2169,47 +2169,83 @@ function PaperAboutAcademic() {
 
       <div className="mt-16">
         <ProgrammeHead numeral="V" label="Studies" color={paper.red} />
-        <ol className="mt-8 grid grid-cols-12 gap-4">
-          {education.map((e, i) => (
-            <motion.li
-              key={e.institution}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-15%" }}
-              transition={{ duration: 0.55, ease, delay: i * 0.05 }}
-              className="col-span-12 md:col-span-4 border-[3px] p-5 relative"
-              style={{ borderColor: paper.ink, background: paper.paper }}
-            >
+        <motion.article
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-15%" }}
+          transition={{ duration: 0.55, ease }}
+          className="mt-10 border-[3px] relative grid grid-cols-1 lg:grid-cols-2"
+          style={{ borderColor: paper.ink, background: paper.paper }}
+        >
+          {education.map((e, i) => {
+            const accent = i === 0 ? paper.red : paper.navy;
+            return (
               <div
-                aria-hidden
-                className="absolute -top-4 left-4 px-2 py-0.5 font-[family-name:var(--p-mono)] text-[11px] uppercase tracking-[0.22em]"
-                style={{
-                  background:
-                    i === 0 ? paper.red : i === 1 ? paper.navy : paper.mustard,
-                  color: i === 2 ? paper.ink : paper.paper,
-                  fontWeight: 700,
-                }}
+                key={e.degree}
+                className={
+                  i === 0
+                    ? "p-7 md:p-9 relative border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px]"
+                    : "p-7 md:p-9 relative"
+                }
+                style={i === 0 ? { borderColor: paper.ink } : undefined}
               >
-                {e.start}–{e.end}
+                <div
+                  aria-hidden
+                  className="inline-block px-2 py-0.5 font-[family-name:var(--p-mono)] text-[10.5px] uppercase tracking-[0.22em]"
+                  style={{ background: accent, color: paper.paper, fontWeight: 700 }}
+                >
+                  {e.start} – {e.end}
+                </div>
+                <h3
+                  className="mt-4 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em] leading-[0.95]"
+                  style={{
+                    fontSize: "clamp(1.3rem, 2vw, 1.7rem)",
+                    color: paper.ink,
+                    fontWeight: 700,
+                  }}
+                >
+                  {e.degree}
+                </h3>
+                <div
+                  className="mt-1.5 font-[family-name:var(--p-mono)] text-[11.5px] uppercase tracking-[0.18em]"
+                  style={{ color: paper.navy, fontWeight: 700 }}
+                >
+                  {e.institution}
+                </div>
+                {e.grade ? (
+                  <div
+                    className="mt-4 font-[family-name:var(--p-mono)] text-[11.5px] uppercase tracking-[0.2em]"
+                    style={{ color: paper.ink, fontWeight: 700 }}
+                  >
+                    Graduation:{" "}
+                    <span style={{ color: accent }}>{e.grade}</span>
+                  </div>
+                ) : null}
+                {e.thesis ? (
+                  <div className="mt-4">
+                    <div
+                      className="font-[family-name:var(--p-mono)] uppercase tracking-[0.24em]"
+                      style={{
+                        fontSize: "9.5px",
+                        color: paper.ink,
+                        opacity: 0.55,
+                        fontWeight: 700,
+                      }}
+                    >
+                      Thesis
+                    </div>
+                    <p
+                      className="mt-1 text-[13.5px] leading-[1.55]"
+                      style={{ color: paper.ink }}
+                    >
+                      {e.thesis}
+                    </p>
+                  </div>
+                ) : null}
               </div>
-              <div
-                className="mt-2 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em] leading-[0.95]"
-                style={{ fontSize: "1.3rem", color: paper.ink, fontWeight: 700 }}
-              >
-                {e.institution}
-              </div>
-              <div
-                className="mt-1 font-[family-name:var(--p-mono)] text-[12px] uppercase tracking-[0.18em]"
-                style={{ color: paper.navy, fontWeight: 700 }}
-              >
-                {e.degree.toLowerCase()}
-              </div>
-              <p className="mt-3 text-[13.5px] leading-[1.55]" style={{ color: paper.ink }}>
-                {e.detail}
-              </p>
-            </motion.li>
-          ))}
-        </ol>
+            );
+          })}
+        </motion.article>
       </div>
     </section>
   );

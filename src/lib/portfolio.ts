@@ -208,33 +208,30 @@ export type Education = {
   degree: string;
   start: string;
   end: string;
+  grade?: string;
+  thesis?: string;
   detail: string;
 };
 
 export const education: Education[] = [
   {
-    institution: "École Centrale",
-    degree: "M.Eng. — Software & Distributed Systems",
-    start: "2018",
-    end: "2020",
+    institution: "Abderrahmane Mira University, Béjaïa",
+    degree: "Master of Artificial Intelligence",
+    start: "Sept 2021",
+    end: "July 2023",
+    grade: "17/20",
+    thesis:
+      "Deep Learning–based prediction of petrous tumour surgical approach.",
     detail:
-      "Thesis on consistency models for collaborative editing. Published one paper, presented at a regional research workshop.",
+      "Graduation: 17/20. Thesis: Deep Learning–based prediction of petrous tumour surgical approach.",
   },
   {
-    institution: "Université Mohammed V",
-    degree: "B.Sc. — Computer Science",
-    start: "2015",
-    end: "2018",
-    detail:
-      "Graduated with honors. Captained the algorithms competition team; reached the regional finals two years running.",
-  },
-  {
-    institution: "Continuous",
-    degree: "Self-directed study",
-    start: "2014",
-    end: "—",
-    detail:
-      "Reading rotation: distributed systems, type theory, interaction design, the craft of writing.",
+    institution: "Abderrahmane Mira University, Béjaïa",
+    degree: "Bachelor of Computer Science",
+    start: "Sept 2018",
+    end: "May 2021",
+    grade: "17/20",
+    detail: "Graduation: 17/20.",
   },
 ];
 
