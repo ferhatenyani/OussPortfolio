@@ -23,6 +23,18 @@ html {
 ::-webkit-scrollbar-thumb { background: rgba(127, 132, 156, 0.45); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(127, 132, 156, 0.7); }
 
+/* Horizontal marquee keyframe — duplicate items in the track so -50% loops seamlessly */
+@keyframes marquee-x {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Marquee track. Animation lives here; pause is driven by inline `animation-play-state` in JS. */
+.marquee-track {
+  width: max-content;
+  animation: marquee-x 60s linear infinite;
+}
+
 /* Honor reduced-motion globally as a safety net */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -2012,73 +2012,103 @@ function ExperienceManifestCard({
 function PaperTestimonials() {
   const palette = [paper.red, paper.navy, paper.mustard, paper.ink];
   const ghosts = [paper.navy, paper.orange, paper.red, paper.orange];
+  // Duplicate the set so the marquee can translate -50% for a seamless loop.
+  const loop = [...testimonials, ...testimonials];
+
+  // Pause state — hover OR mouse-held / touch-held. Inline animation-play-state
+  // beats any CSS rule, sidestepping the specificity issue we were hitting.
+  const [hover, setHover] = useState(false);
+  const [held, setHeld] = useState(false);
+  const paused = hover || held;
+
+  // Release tracking on the document so a release outside the track still resumes.
+  useEffect(() => {
+    const onRelease = () => setHeld(false);
+    document.addEventListener("mouseup", onRelease);
+    document.addEventListener("touchend", onRelease);
+    document.addEventListener("touchcancel", onRelease);
+    return () => {
+      document.removeEventListener("mouseup", onRelease);
+      document.removeEventListener("touchend", onRelease);
+      document.removeEventListener("touchcancel", onRelease);
+    };
+  }, []);
+
   return (
-    <section className="relative z-[3] px-8 lg:px-16 py-20">
-      <ProgrammeHead numeral="III" label="Voices" color={paper.red} ghost={paper.navy} />
-      <div className="mt-12 grid grid-cols-12 gap-4">
-        {testimonials.map((t, i) => {
-          const c = palette[i % palette.length];
-          const ghost = ghosts[i % ghosts.length];
-          const fg = c === paper.mustard ? paper.ink : paper.paper;
-          return (
-            <motion.figure
-              key={t.name}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, ease, delay: i * 0.05 }}
-              className="col-span-12 md:col-span-6 relative p-7 md:p-9 overflow-hidden"
-              style={{ background: c, color: fg }}
-            >
-              {/* halftone overlay — riso ink screen */}
-              <div className="absolute inset-0 pointer-events-none">
-                <HalftoneRadial
-                  color={ghost}
-                  cx={i % 2 === 0 ? 0.85 : 0.15}
-                  cy={i % 2 === 0 ? 0.2 : 0.8}
-                  intensity={0.7}
-                />
-              </div>
-              <span
-                aria-hidden
-                className="absolute top-4 left-5 font-[family-name:var(--p-display)] leading-[0.7] z-10"
+    <section className="relative z-[3] py-20 overflow-hidden">
+      <div className="px-8 lg:px-16 mb-10">
+        <ProgrammeHead numeral="III" label="Voices" color={paper.red} ghost={paper.navy} />
+      </div>
+
+      <div className="relative w-full overflow-hidden">
+        <div
+          className="marquee-track flex"
+          style={{ animationPlayState: paused ? "paused" : "running" }}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onMouseDown={() => setHeld(true)}
+          onTouchStart={() => setHeld(true)}
+        >
+          {loop.map((t, i) => {
+            const baseIdx = i % testimonials.length;
+            const c = palette[baseIdx % palette.length];
+            const ghost = ghosts[baseIdx % ghosts.length];
+            const fg = c === paper.mustard ? paper.ink : paper.paper;
+            return (
+              <figure
+                key={`${t.name}-${i}`}
+                aria-hidden={i >= testimonials.length}
+                className="relative shrink-0 overflow-hidden p-5"
                 style={{
-                  fontSize: "7rem",
+                  width: "max(300px, calc(25vw - 16px))",
+                  minHeight: 200,
+                  marginRight: 16,
+                  background: c,
                   color: fg,
-                  opacity: 0.45,
-                  fontWeight: 700,
-                  textShadow: `3px 2px 0 ${ghost}`,
                 }}
               >
-                &ldquo;
-              </span>
-              <blockquote
-                className="relative z-10 font-[family-name:var(--p-display)] uppercase tracking-[-0.03em] leading-[0.94]"
-                style={{
-                  fontSize: "clamp(1.2rem, 1.7vw, 1.55rem)",
-                  color: fg,
-                  fontWeight: 700,
-                  textShadow: `1.6px 1px 0 ${ghost}`,
-                }}
-              >
-                {t.quote}
-              </blockquote>
-              <figcaption
-                className="relative z-10 mt-7 font-[family-name:var(--p-mono)] text-[10.5px] uppercase tracking-[0.22em] flex items-baseline gap-3 flex-wrap"
-                style={{ color: fg, opacity: 0.9, fontWeight: 700 }}
-              >
-                <span>— {t.name} · {t.role.toLowerCase()} · {t.org.toLowerCase()}</span>
-                {i === 0 ? (
-                  <span className="ml-auto inline-block">
-                    <PrintedStamp color={paper.paper} bg={paper.ink} rotate={-2}>
-                      ★ verified
-                    </PrintedStamp>
-                  </span>
-                ) : null}
-              </figcaption>
-            </motion.figure>
-          );
-        })}
+                <div className="absolute inset-0 pointer-events-none">
+                  <HalftoneRadial
+                    color={ghost}
+                    cx={baseIdx % 2 === 0 ? 0.85 : 0.15}
+                    cy={baseIdx % 2 === 0 ? 0.2 : 0.8}
+                    intensity={0.6}
+                  />
+                </div>
+                <span
+                  aria-hidden
+                  className="absolute top-2 left-3 font-[family-name:var(--p-display)] leading-[0.7] z-10"
+                  style={{
+                    fontSize: "3.5rem",
+                    color: fg,
+                    opacity: 0.4,
+                    fontWeight: 700,
+                    textShadow: `2px 1.5px 0 ${ghost}`,
+                  }}
+                >
+                  &ldquo;
+                </span>
+                <blockquote
+                  className="relative z-10 mt-8 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em] leading-[1.1]"
+                  style={{
+                    fontSize: "0.85rem",
+                    color: fg,
+                    fontWeight: 700,
+                    textShadow: `1.2px 0.8px 0 ${ghost}`,
+                  }}
+                >
+                  {t.quote}
+                </blockquote>
+                <figcaption
+                  className="relative z-10 mt-3 font-[family-name:var(--p-mono)] text-[9px] uppercase tracking-[0.2em]"
+                  style={{ color: fg, opacity: 0.85, fontWeight: 700 }}
+                >
+                  — {t.name} · {t.org.toLowerCase()}
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
