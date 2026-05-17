@@ -2310,6 +2310,45 @@ function PaperAboutAcademic() {
 }
 
 function PaperContact() {
+  const reduced = useReducedMotion();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [focused, setFocused] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [receiptNum, setReceiptNum] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (status === "sending" || status === "sent") return;
+    setStatus("sending");
+    try {
+      // TODO: wire EmailJS here — replace this placeholder block.
+      // e.g. await emailjs.send(serviceID, templateID, { name, email, message })
+      await new Promise((r) => setTimeout(r, 900));
+      setReceiptNum(String(Math.floor(Math.random() * 9000 + 1000)));
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const locked = status === "sending" || status === "sent";
+
+  type FieldDef = {
+    name: string;
+    label: string;
+    accent: string;
+    type: string;
+    value: string;
+    set: (v: string) => void;
+    placeholder: string;
+  };
+  const fields: FieldDef[] = [
+    { name: "name", label: "Name", accent: paper.red, type: "text", value: name, set: setName, placeholder: "your name" },
+    { name: "email", label: "Email", accent: paper.navy, type: "email", value: email, set: setEmail, placeholder: "your@email" },
+  ];
+
   return (
     <section
       className="relative z-[3] overflow-hidden"
@@ -2343,7 +2382,7 @@ function PaperContact() {
       <div className="relative z-10 px-8 lg:px-16 py-20">
         <ProgrammeHead
           numeral="VI"
-          label="Dispatch"
+          label="Contact"
           color={paper.mustard}
           dark
           ghost={paper.navy}
@@ -2368,13 +2407,15 @@ function PaperContact() {
             say something specific.
           </span>
         </h2>
-        <div className="mt-12 grid grid-cols-12 gap-x-6 items-end">
-          <div className="col-span-12 md:col-span-7">
+
+        <div className="mt-14 grid grid-cols-12 gap-x-8 gap-y-10">
+          {/* LEFT — direct contact info */}
+          <div className="col-span-12 lg:col-span-5">
             <a
               href={`mailto:${profile.email}`}
-              className="font-[family-name:var(--p-display)] uppercase tracking-[-0.025em]"
+              className="font-[family-name:var(--p-display)] uppercase tracking-[-0.025em] break-words"
               style={{
-                fontSize: "clamp(1.4rem, 3.2vw, 2.4rem)",
+                fontSize: "clamp(1.1rem, 2.4vw, 1.7rem)",
                 color: paper.paper,
                 borderBottom: `4px solid ${paper.mustard}`,
                 paddingBottom: "0.05em",
@@ -2384,7 +2425,7 @@ function PaperContact() {
               {profile.email}
             </a>
             <ul
-              className="mt-7 grid grid-cols-2 gap-y-1 font-[family-name:var(--p-mono)] text-[12px]"
+              className="mt-6 grid grid-cols-2 gap-y-1 font-[family-name:var(--p-mono)] text-[11px]"
               style={{ color: paper.paper, fontWeight: 700 }}
             >
               {profile.social.map((s) => (
@@ -2394,39 +2435,318 @@ function PaperContact() {
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex items-center gap-3">
+            <div className="mt-7 flex items-center gap-3 flex-wrap">
               <PrintedStamp color={paper.mustard} bg={paper.navy} rotate={-2.5}>
-                ★ subscriber
+                ★ replies in 24h
               </PrintedStamp>
               <span
-                className="font-[family-name:var(--p-mono)] text-[10.5px] uppercase tracking-[0.22em]"
-                style={{ color: paper.paper, opacity: 0.7, fontWeight: 700 }}
+                className="font-[family-name:var(--p-mono)] text-[10px] uppercase tracking-[0.22em]"
+                style={{ color: paper.paper, opacity: 0.75, fontWeight: 700 }}
               >
-                replies usually within a day
+                or use the form →
               </span>
             </div>
           </div>
-          <div className="col-span-12 md:col-span-4 md:col-start-9 mt-10 md:mt-0 relative">
-            <a
-              href={`mailto:${profile.email}`}
-              className="block w-full text-center px-5 py-5 font-[family-name:var(--p-display)] uppercase tracking-[-0.02em]"
+
+          {/* RIGHT — Programme order form */}
+          <div className="col-span-12 lg:col-span-7">
+            <motion.form
+              onSubmit={onSubmit}
+              initial={reduced ? { opacity: 0 } : { opacity: 0, y: -8, rotate: 0.5 }}
+              whileInView={reduced ? { opacity: 1 } : { opacity: 1, y: 0, rotate: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: reduced ? 0.2 : 0.55, ease }}
+              className="relative overflow-hidden"
               style={{
+                border: `2px solid ${paper.ink}`,
                 background: paper.paper,
-                color: paper.red,
-                fontSize: "1.3rem",
-                minHeight: 44,
-                border: `4px solid ${paper.ink}`,
-                boxShadow: `8px 8px 0 ${paper.ink}`,
-                fontWeight: 700,
+                color: paper.ink,
+                boxShadow: `4px 4px 0 ${paper.ink}`,
               }}
             >
-              write now ★
-            </a>
-            <div className="absolute -top-3 -right-2 z-10">
-              <PrintedStamp color={paper.paper} bg={paper.ink} rotate={6}>
-                ✦ paid
-              </PrintedStamp>
-            </div>
+              <span aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.05]">
+                <RisoTexture color={paper.ink} opacity={0.5} />
+              </span>
+
+              {/* HEADER STRIP */}
+              <header
+                className="relative flex items-center justify-between gap-3 px-5 md:px-6 py-3"
+                style={{ borderBottom: `1.5px solid ${paper.ink}` }}
+              >
+                <div
+                  className="font-[family-name:var(--p-mono)] uppercase"
+                  style={{
+                    fontSize: "9.5px",
+                    letterSpacing: "0.32em",
+                    fontWeight: 800,
+                    color: paper.ink,
+                    opacity: 0.85,
+                  }}
+                >
+                  Transmission №01
+                </div>
+                <div
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5"
+                  style={{
+                    background: paper.red,
+                    color: paper.paper,
+                    fontFamily: "var(--p-mono), monospace",
+                    fontSize: "9px",
+                    letterSpacing: "0.28em",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  <motion.span
+                    aria-hidden
+                    style={{ width: 5, height: 5, borderRadius: 9999, background: paper.paper, display: "inline-block" }}
+                    animate={reduced ? undefined : { opacity: [1, 0.45, 1] }}
+                    transition={reduced ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  Open for work
+                </div>
+              </header>
+
+              {/* SINGLE-LINE FIELDS — Name, Email */}
+              {fields.map((field) => {
+                const isFocused = focused === field.name;
+                return (
+                  <label
+                    key={field.name}
+                    className="relative flex items-stretch"
+                    style={{
+                      borderBottom: `1.5px solid ${isFocused ? field.accent : paper.ink}`,
+                      transition: "border-color 180ms ease",
+                    }}
+                  >
+                    <span
+                      className="flex items-center px-5 md:px-6 py-3.5 shrink-0"
+                      style={{ width: 130, borderRight: `1.5px solid ${paper.ink}` }}
+                    >
+                      <span
+                        className="font-[family-name:var(--p-mono)] uppercase"
+                        style={{
+                          fontSize: "9.5px",
+                          letterSpacing: "0.26em",
+                          fontWeight: 800,
+                          color: paper.ink,
+                        }}
+                      >
+                        {field.label}
+                        <span
+                          aria-hidden
+                          style={{
+                            color: field.accent,
+                            marginLeft: 6,
+                            opacity: 0.85,
+                            fontSize: "8px",
+                          }}
+                        >
+                          · req
+                        </span>
+                      </span>
+                    </span>
+                    <span className="relative flex-1 flex items-center px-4">
+                      <span
+                        aria-hidden
+                        className="absolute left-1.5"
+                        style={{
+                          color: field.accent,
+                          opacity: isFocused ? 1 : 0,
+                          fontWeight: 700,
+                          transition: "opacity 180ms ease",
+                        }}
+                      >
+                        ▸
+                      </span>
+                      <input
+                        type={field.type}
+                        value={field.value}
+                        onChange={(e) => field.set(e.target.value)}
+                        onFocus={() => setFocused(field.name)}
+                        onBlur={() => setFocused(null)}
+                        placeholder={field.placeholder}
+                        required
+                        disabled={locked}
+                        className="w-full bg-transparent outline-none py-3 placeholder:opacity-40 disabled:opacity-60"
+                        style={{
+                          fontSize: "0.92rem",
+                          color: paper.ink,
+                          fontFamily: "var(--p-body), ui-sans-serif, system-ui, sans-serif",
+                        }}
+                      />
+                    </span>
+                  </label>
+                );
+              })}
+
+              {/* MESSAGE FIELD */}
+              {(() => {
+                const isFocused = focused === "message";
+                return (
+                  <label
+                    className="relative flex items-stretch"
+                    style={{
+                      borderBottom: `1.5px solid ${isFocused ? paper.mustard : paper.ink}`,
+                      transition: "border-color 180ms ease",
+                    }}
+                  >
+                    <span
+                      className="flex items-start px-5 md:px-6 pt-3.5 shrink-0"
+                      style={{ width: 130, borderRight: `1.5px solid ${paper.ink}` }}
+                    >
+                      <span
+                        className="font-[family-name:var(--p-mono)] uppercase"
+                        style={{
+                          fontSize: "9.5px",
+                          letterSpacing: "0.26em",
+                          fontWeight: 800,
+                          color: paper.ink,
+                        }}
+                      >
+                        Message
+                        <span
+                          aria-hidden
+                          style={{
+                            color: paper.mustard,
+                            marginLeft: 6,
+                            opacity: 0.85,
+                            fontSize: "8px",
+                          }}
+                        >
+                          · req
+                        </span>
+                      </span>
+                    </span>
+                    <span className="relative flex-1 flex flex-col px-4 py-3">
+                      <span
+                        aria-hidden
+                        className="absolute left-1.5 top-3"
+                        style={{
+                          color: paper.mustard,
+                          opacity: isFocused ? 1 : 0,
+                          fontWeight: 700,
+                          transition: "opacity 180ms ease",
+                        }}
+                      >
+                        ▸
+                      </span>
+                      <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        onFocus={() => setFocused("message")}
+                        onBlur={() => setFocused(null)}
+                        placeholder="tell me what you're building, what you need, or just say hi."
+                        required
+                        disabled={locked}
+                        maxLength={500}
+                        rows={5}
+                        className="w-full bg-transparent outline-none resize-none placeholder:opacity-40 disabled:opacity-60"
+                        style={{
+                          fontSize: "0.92rem",
+                          lineHeight: 1.55,
+                          color: paper.ink,
+                          fontFamily: "var(--p-body), ui-sans-serif, system-ui, sans-serif",
+                        }}
+                      />
+                      <div
+                        className="font-[family-name:var(--p-mono)] text-right"
+                        style={{
+                          fontSize: "9px",
+                          letterSpacing: "0.22em",
+                          color: paper.ink,
+                          opacity: 0.45,
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {message.length} / 500
+                      </div>
+                    </span>
+                  </label>
+                );
+              })()}
+
+              {/* FOOTNOTE */}
+              <div
+                className="relative px-5 md:px-6 py-3"
+                style={{ borderBottom: `1.5px solid ${paper.ink}` }}
+              >
+                <div
+                  className="font-[family-name:var(--p-mono)] uppercase"
+                  style={{
+                    fontSize: "9px",
+                    letterSpacing: "0.24em",
+                    fontWeight: 700,
+                    color: paper.ink,
+                    opacity: 0.6,
+                  }}
+                >
+                  Dispatched via this form arrives at{" "}
+                  <span style={{ color: paper.red, opacity: 1 }}>
+                    {profile.email}
+                  </span>
+                  .
+                </div>
+              </div>
+
+              {/* SUBMIT */}
+              <div className="relative px-5 md:px-6 py-5">
+                <motion.button
+                  type="submit"
+                  disabled={locked}
+                  whileHover={reduced || locked ? undefined : { x: -1.5, y: -1.5 }}
+                  whileTap={reduced || locked ? undefined : { x: 2, y: 2 }}
+                  className="w-full px-5 py-4 font-[family-name:var(--p-display)] uppercase tracking-[-0.01em]"
+                  style={{
+                    fontSize: "1.05rem",
+                    fontWeight: 800,
+                    background: status === "sent" ? paper.mustard : paper.red,
+                    color: status === "sent" ? paper.ink : paper.paper,
+                    border: `2px solid ${paper.ink}`,
+                    boxShadow: `4px 4px 0 ${paper.ink}`,
+                    cursor: locked ? "default" : "pointer",
+                    transition: "background 220ms ease, color 220ms ease",
+                  }}
+                >
+                  {status === "idle" && "Contact Me ★"}
+                  {status === "sending" && "· · · sending · · ·"}
+                  {status === "sent" && "Received ✓"}
+                  {status === "error" && "Try again — failed"}
+                </motion.button>
+
+                {/* receipt chip — slides in below the button after success */}
+                <AnimatePresence>
+                  {status === "sent" && receiptNum ? (
+                    <motion.div
+                      key="receipt"
+                      initial={reduced ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        duration: reduced ? 0.18 : 0.4,
+                        ease,
+                        delay: reduced ? 0 : 0.15,
+                      }}
+                      className="absolute left-1/2 -translate-x-1/2 px-2.5 py-1"
+                      style={{
+                        bottom: -12,
+                        background: paper.ink,
+                        color: paper.paper,
+                        fontFamily: "var(--p-mono), monospace",
+                        fontSize: "9px",
+                        letterSpacing: "0.32em",
+                        fontWeight: 800,
+                        textTransform: "uppercase",
+                        transform: "rotate(-2deg) translateX(-50%)",
+                      }}
+                    >
+                      Receipt №{receiptNum}
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            </motion.form>
           </div>
         </div>
       </div>
