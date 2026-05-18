@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const SITE = "https://oussthecodeguy.dev";
-const TITLE = "Oussama Bendou — Software Engineer";
+// TODO: replace SITE with your real production domain when ready.
+const SITE = "https://oussamabenberkane.dev";
+const TITLE = "Oussama Benberkane — Full Stack Developer";
 const DESC =
-  "Designs and builds performant, opinionated software — from full-stack platforms to interfaces engineered for speed and clarity. Casablanca / Remote.";
+  "Full-stack developer with a Master's in AI — building production systems end-to-end. REST APIs, cloud infrastructure, and React/Next.js. Béjaïa, Algeria · Remote.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -12,21 +13,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   alternates: { canonical: "/" },
   keywords: [
-    "Oussama Bendou",
-    "software engineer",
+    "Oussama Benberkane",
+    "full stack developer",
     "portfolio",
     "Next.js",
     "TypeScript",
-    "Casablanca",
-    "Remote engineer",
+    "Spring Boot",
+    "Django",
+    "AI engineer",
+    "Béjaïa",
+    "Remote developer",
   ],
-  authors: [{ name: "Oussama Bendou", url: SITE }],
-  creator: "Oussama Bendou",
+  authors: [{ name: "Oussama Benberkane", url: SITE }],
+  creator: "Oussama Benberkane",
   openGraph: {
     title: TITLE,
     description: DESC,
     url: SITE,
-    siteName: "oussthecodeguy",
+    siteName: "oussamabenberkane",
     locale: "en_US",
     type: "website",
     images: [
@@ -34,7 +38,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Oussama Bendou — Software Engineer",
+        alt: "Oussama Benberkane — Full Stack Developer",
       },
     ],
   },
@@ -42,7 +46,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESC,
-    creator: "@oussthecodeguy",
     images: ["/og.png"],
   },
   robots: {

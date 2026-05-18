@@ -1,17 +1,16 @@
 export const profile = {
-  name: "Oussama Bendou",
-  handle: "@oussthecodeguy",
-  role: "Software Engineer · Product Builder",
-  location: "Casablanca / Remote · UTC+1",
-  email: "oussthecodeguy@gmail.com",
+  name: "Oussama Benberkane",
+  handle: "@oussamabenberkane",
+  role: "Full Stack Developer",
+  location: "Béjaïa, Algeria · Remote",
+  email: "oussamabenberkane.pro@gmail.com",
   available: true,
   tagline:
-    "I design and build performant, opinionated software — from full-stack platforms to interfaces engineered for speed and clarity.",
+    "Full-stack developer with a Master's in AI — building production systems end-to-end. REST APIs, cloud infrastructure, and React/Next.js frontends. Multilingual, remote-first.",
   social: [
-    { label: "GitHub", href: "https://github.com/oussthecodeguy", handle: "github/oussthecodeguy" },
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/oussthecodeguy", handle: "in/oussthecodeguy" },
-    { label: "X / Twitter", href: "https://twitter.com/oussthecodeguy", handle: "x/oussthecodeguy" },
-    { label: "Email", href: "mailto:oussthecodeguy@gmail.com", handle: "oussthecodeguy@gmail.com" },
+    { label: "GitHub", href: "https://github.com/oussamabenberkane", handle: "github/oussamabenberkane" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/oussama-benberkane", handle: "in/oussama-benberkane" },
+    { label: "Email", href: "mailto:oussamabenberkane.pro@gmail.com", handle: "oussamabenberkane.pro@gmail.com" },
   ],
 };
 
@@ -37,17 +36,19 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
-    company: "Independent",
-    role: "Founder & Engineer",
+    company: "Wedey (wedey.ai)",
+    role: "Full Stack Developer",
     start: "Jan 2026",
     end: "Present",
     location: "Remote · Full Time",
     summary:
-      "Independent engineering and consulting work on backend systems, distributed infrastructure, and product builds.",
+      "Founding engineer on an AI-powered recruitment SaaS — full-stack delivery from data models to user flows.",
     highlights: [
-      "Building product software and taking on backend / AI engagements.",
+      "Architecting and shipping a full-stack AI-powered recruitment SaaS (Next.js 15, Supabase, PostgreSQL) as a founding engineer.",
+      "Designed relational data models and API layer for job management, skill matching, and multi-role organization dashboards.",
+      "Built AI-driven candidate screening features and end-to-end flows including waitlist and interactive demo onboarding.",
     ],
-    stack: ["TypeScript", "Spring Boot", "Next.js", "AWS"],
+    stack: ["Next.js 15", "TypeScript", "Supabase", "PostgreSQL"],
   },
   {
     company: "Tech-Instinct",
@@ -278,18 +279,66 @@ export const stack = [
   "React",
   "Next.js",
   "Node",
-  "Go",
-  "Rust",
+  "Java",
+  "Python",
+  "Spring Boot",
+  "Django",
+  "REST APIs",
   "Postgres",
-  "ClickHouse",
-  "Redis",
-  "Kafka",
-  "Docker",
+  "Supabase",
   "AWS",
-  "Vercel",
-  "Cloudflare",
+  "Docker",
+  "PWA",
+  "LLM Integration",
+  "ML/DL",
   "Tailwind",
-  "Framer Motion",
+];
+
+export type Language = {
+  name: string;
+  level: "Native" | "Fluent" | "Proficient";
+};
+
+export const languages: Language[] = [
+  { name: "Kabyle", level: "Native" },
+  { name: "Arabic", level: "Fluent" },
+  { name: "English", level: "Fluent" },
+  { name: "French", level: "Proficient" },
+];
+
+export type Volunteer = {
+  role: string;
+  org: string;
+  start: string;
+  end: string;
+  detail: string;
+};
+
+export const volunteer: Volunteer[] = [
+  {
+    role: "Board Member",
+    org: "Soummam Basketball Club",
+    start: "Feb 2026",
+    end: "Present",
+    detail:
+      "Founding board member as the club transitioned from amateur to officially recognized status.",
+  },
+  {
+    role: "Mentor & Judge",
+    org: "ESTIN Datathon",
+    start: "2023",
+    end: "2024",
+    detail:
+      "Evaluate AI/ML project submissions and mentor student teams; active bridge between industry and academic research networks.",
+  },
+  {
+    role: "Active Member",
+    org: "CSI Computer Science Club",
+    start: "2018",
+    end: "2023",
+    detail:
+      "Engaged throughout bachelor's and master's studies in technical workshops, hackathons, and CS community initiatives.",
+  },
 ];
 
 export const values = [

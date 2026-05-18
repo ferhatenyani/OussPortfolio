@@ -25,6 +25,8 @@ import {
   testimonials,
   education,
   values,
+  languages,
+  volunteer,
 } from "@/lib/portfolio";
 
 // ════════════════════════════════════════════════════════════════
@@ -682,7 +684,7 @@ function PaperHero() {
         >
           <span style={{ color: paper.navy }}>Issue №09 · Two-Ink Portfolio</span>
           <span className="hidden sm:inline" style={{ color: paper.ink }}>
-            printed in casablanca · MMXXVI
+            printed in béjaïa · MMXXVI
           </span>
           <span style={{ color: paper.red }}>05 / 2026</span>
         </div>
@@ -2108,11 +2110,141 @@ function PaperAboutAcademic() {
       style={{ background: paper.bone }}
     >
       <ProgrammeHead numeral="IV" label="The Maker" color={paper.navy} />
-      <div className="mt-10 grid grid-cols-12 gap-x-6">
-        <div className="col-span-12 md:col-span-5 relative">
-          <PaperComposition />
+      <div className="mt-10 grid grid-cols-12 gap-x-6 gap-y-10">
+        {/* LEFT — Portrait placeholder + Languages + Volunteer */}
+        <div className="col-span-12 md:col-span-5">
+          {/*
+            PORTRAIT PLACEHOLDER
+            Drop a real photo into /public/portrait.jpg, then replace the inner
+            <PortraitPlaceholder /> with <PortraitPhoto /> (or just an <Image> tag).
+          */}
+          <div
+            className="relative w-full aspect-square max-w-md overflow-hidden"
+            style={{
+              border: `2px solid ${paper.ink}`,
+              background: paper.paperWarm,
+              boxShadow: `5px 5px 0 ${paper.ink}`,
+            }}
+          >
+            <span aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.12]">
+              <RisoTexture color={paper.red} opacity={0.5} />
+            </span>
+
+            {/* placeholder content — swap for <Image src="/portrait.jpg" .../> when ready */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-6">
+              <svg viewBox="0 0 100 100" className="w-32 h-32" aria-hidden>
+                <circle cx="50" cy="40" r="20" fill="none" stroke={paper.ink} strokeWidth="2" />
+                <path d="M 16 92 Q 50 60 84 92" fill="none" stroke={paper.ink} strokeWidth="2" />
+                <g style={{ mixBlendMode: "multiply" } as React.CSSProperties} opacity="0.45">
+                  <circle cx="53" cy="42" r="20" fill="none" stroke={paper.red} strokeWidth="2" />
+                  <path d="M 19 94 Q 53 62 87 94" fill="none" stroke={paper.red} strokeWidth="2" />
+                </g>
+              </svg>
+              <div
+                className="font-[family-name:var(--p-mono)] uppercase text-center"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.32em",
+                  fontWeight: 800,
+                  color: paper.ink,
+                  opacity: 0.55,
+                }}
+              >
+                Portrait · TBD
+              </div>
+            </div>
+
+            {/* corner stamp */}
+            <div className="absolute top-2 right-2">
+              <PrintedStamp color={paper.paper} bg={paper.ink} rotate={5}>
+                ★ in progress
+              </PrintedStamp>
+            </div>
+          </div>
+
+          {/* LANGUAGES tags */}
+          <div className="mt-7">
+            <div
+              className="font-[family-name:var(--p-mono)] uppercase"
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.32em",
+                fontWeight: 800,
+                color: paper.ink,
+                opacity: 0.6,
+              }}
+            >
+              Languages
+            </div>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {languages.map((l) => (
+                <span
+                  key={l.name}
+                  className="inline-flex items-baseline gap-1.5 px-2 py-1"
+                  style={{
+                    border: `1.5px solid ${paper.ink}`,
+                    background: paper.paper,
+                    fontFamily: "var(--p-mono), monospace",
+                    fontSize: "9.5px",
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                    fontWeight: 700,
+                    color: paper.ink,
+                  }}
+                >
+                  <span>{l.name}</span>
+                  <span style={{ color: paper.red, fontSize: "8.5px", fontWeight: 800 }}>
+                    · {l.level}
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* VOLUNTEER tags */}
+          <div className="mt-6">
+            <div
+              className="font-[family-name:var(--p-mono)] uppercase"
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.32em",
+                fontWeight: 800,
+                color: paper.ink,
+                opacity: 0.6,
+              }}
+            >
+              Volunteer
+            </div>
+            <ul className="mt-2.5 flex flex-col gap-1.5">
+              {volunteer.map((v) => (
+                <li
+                  key={v.org}
+                  className="inline-flex items-baseline gap-2 px-2 py-1"
+                  style={{
+                    border: `1.5px solid ${paper.ink}`,
+                    background: paper.paper,
+                    fontFamily: "var(--p-mono), monospace",
+                    fontSize: "9.5px",
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    fontWeight: 700,
+                    color: paper.ink,
+                  }}
+                >
+                  <span style={{ color: paper.navy, fontWeight: 800, fontSize: "9px" }}>
+                    {v.start}
+                    {v.end !== v.start ? `–${v.end}` : ""}
+                  </span>
+                  <span>{v.role}</span>
+                  <span style={{ opacity: 0.55 }}>· {v.org}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div className="col-span-12 md:col-span-6 md:col-start-7 mt-12 md:mt-0">
+
+        {/* RIGHT — headline + bio + values */}
+        <div className="col-span-12 md:col-span-6 md:col-start-7">
           <h2
             className="font-[family-name:var(--p-display)] uppercase tracking-[-0.035em] leading-[0.88]"
             style={{ fontSize: "clamp(2rem, 4.4vw, 3.2rem)", color: paper.ink, fontWeight: 700 }}
@@ -2125,9 +2257,9 @@ function PaperAboutAcademic() {
             className="mt-5 max-w-md text-[15.5px] leading-[1.6]"
             style={{ color: paper.ink, fontWeight: 500 }}
           >
-            {profile.name.toLowerCase()}. software engineer. {profile.location}.
-            designs and builds performant, opinionated software — from full-stack
-            platforms to interfaces engineered for speed and clarity.
+            {profile.name.toLowerCase()}. full stack developer. {profile.location.toLowerCase()}.
+            building production systems end-to-end — REST APIs, cloud infrastructure,
+            and react/next.js. ML/DL in production, LLM features in live SaaS.
           </p>
           <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-3">
             {values.map((v, i) => (
@@ -2817,7 +2949,7 @@ function PaperColophon() {
           opacity: 0.6,
         }}
       >
-        <span>bendou · mmxxvi · casablanca</span>
+        <span>benberkane · mmxxvi · béjaïa</span>
         <span>200 lpi half-tone screen · 100% recycled paper</span>
         <span>— end —</span>
       </div>
@@ -2894,51 +3026,6 @@ function Shape({
     <svg width={size} height={size * 0.86} viewBox="0 0 100 86" aria-hidden>
       <polygon points="50,0 100,86 0,86" fill={color} />
     </svg>
-  );
-}
-
-function PaperComposition() {
-  return (
-    <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
-      <svg
-        viewBox="0 0 600 600"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <pattern id="comp-halftone" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="10" cy="10" r="1.6" fill={paper.ink} fillOpacity="0.35" />
-          </pattern>
-        </defs>
-        <rect width="600" height="600" fill={paper.bone} />
-        <rect width="600" height="600" fill="url(#comp-halftone)" opacity="0.6" />
-        {/* shapes use multiply via group filter — overlap = third tone */}
-        <g style={{ mixBlendMode: "multiply" } as React.CSSProperties}>
-          <circle cx="220" cy="240" r="160" fill={paper.red} />
-        </g>
-        <g style={{ mixBlendMode: "multiply" } as React.CSSProperties}>
-          <rect x="260" y="270" width="240" height="240" fill={paper.navy} />
-        </g>
-        <g style={{ mixBlendMode: "multiply" } as React.CSSProperties}>
-          <polygon points="370,80 520,300 240,300" fill={paper.mustard} />
-        </g>
-        {/* misregistered second-pass orange ghost */}
-        <g style={{ mixBlendMode: "multiply" } as React.CSSProperties} opacity="0.55">
-          <circle cx="226" cy="246" r="160" fill="none" stroke={paper.orange} strokeWidth="2" />
-        </g>
-        <line x1="50" y1="510" x2="550" y2="510" stroke={paper.ink} strokeWidth="6" />
-        <text
-          x="60"
-          y="548"
-          fontFamily="JetBrains Mono, monospace"
-          fontSize="14"
-          fill={paper.ink}
-          letterSpacing="2"
-        >
-          THE MAKER · 1:1 STUDY
-        </text>
-      </svg>
-    </div>
   );
 }
 
